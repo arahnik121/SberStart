@@ -14,7 +14,7 @@ public interface Storage {
 
     void updateCard(Card c);
 
-    Card getCard(int id);
+    Card getCard(String id);
 
     List<Card> getAllCardsSorted();
 

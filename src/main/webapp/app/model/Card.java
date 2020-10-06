@@ -3,31 +3,38 @@ package main.webapp.app.model;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
+import java.util.UUID;
+
 
 public class Card implements Comparable<Card>, Serializable {
-    private String id;
+    private UUID id;
     private int number;
-    private String account_id;
+    private UUID account_id;
 
-    public Card(String id, int number, String account_id) {
+    public Card() {
+
+    }
+
+
+    public Card(UUID id, int number, UUID account_id) {
         this.id = id;
         this.number = number;
         this.account_id = account_id;
     }
 
-    public String getAccount_id() {
+    public UUID getAccount_id() {
         return account_id;
     }
 
-    public void setAccount_id(String account_id) {
+    public void setAccount_id(UUID account_id) {
         this.account_id = account_id;
     }
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

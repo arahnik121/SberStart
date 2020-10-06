@@ -10,9 +10,6 @@ import java.io.IOException;
 
 
 public class Servlet {
-
-    private Storage storage = new SQLStorage("jdbc:h2:mem:storage", "root", "password");
-
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }

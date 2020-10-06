@@ -7,20 +7,20 @@ import java.io.Serializable;
 public class Card implements Comparable<Card>, Serializable {
     private String id;
     private int number;
-    private float money;
+    private String account_id;
 
-    public Card(String id, int number, float money) {
+    public Card(String id, int number, String account_id) {
         this.id = id;
         this.number = number;
-        this.money = money;
+        this.account_id = account_id;
     }
 
-    public float getMoney() {
-        return money;
+    public String getAccount_id() {
+        return account_id;
     }
 
-    public void setMoney(float money) {
-        this.money = money;
+    public void setAccount_id(String account_id) {
+        this.account_id = account_id;
     }
 
     public String getId() {

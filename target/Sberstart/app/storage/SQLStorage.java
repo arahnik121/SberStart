@@ -2,27 +2,21 @@ package main.webapp.app.storage;
 
 import main.webapp.app.model.Account;
 import main.webapp.app.model.Card;
-import main.webapp.app.exceptions.NotExistStorageException;
 import main.webapp.app.model.Client;
 import main.webapp.app.sql.ConnectionFactory;
-import main.webapp.app.sql.SQLExecutor;
 import main.webapp.app.sql.SQLHelper;
 import main.webapp.app.sql.SQLTransaction;
-import main.webapp.app.storage.Storage;
 
-import java.sql.*;
-import java.util.ArrayList;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
 public class SQLStorage implements Storage {
     public final SQLHelper sqlHelper;
 
     public SQLStorage(final String dbUrl, final String dbUser, final String dbPassword) {
-        try {
-            Class.forName("org.postgresql.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new IllegalStateException(e);
-        }
         this.sqlHelper = new SQLHelper(new ConnectionFactory() {
             @Override
             public Connection getConnection() throws SQLException {
@@ -33,12 +27,23 @@ public class SQLStorage implements Storage {
 
     @Override
     public void clearCards() {
-        sqlHelper.execute("DELETE FROM CARD");
+        sqlHelper.execute("DELETE FROM STORAGE.PUBLIC.CARD");
     }
 
     @Override
-    public void saveCard(Account a, Card c) {
-
+    public void saveCard(Account a, final Card c) {
+        sqlHelper.transactionalExecute(new SQLTransaction<Object>() {
+            @Override
+            public Object wrap(Connection conn) throws SQLException {
+                try (PreparedStatement ps = conn.prepareStatement("INSERT INTO CARD (id, NUMBER, ACCOUNT_ID) VALUES (?, ?, ?)")) {
+                    ps.setString(1, c.getId());
+                    ps.setInt(2, c.getNumber());
+                    ps.setString(3, c.getAccount_id());
+                    ps.execute();
+                    return null;
+                }
+            }
+        });
     }
 
     @Override

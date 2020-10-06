@@ -7,11 +7,9 @@ import main.webapp.app.sql.ConnectionFactory;
 import main.webapp.app.sql.SQLHelper;
 import main.webapp.app.sql.SQLTransaction;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
+import java.util.UUID;
 
 public class SQLStorage implements Storage {
     public final SQLHelper sqlHelper;
@@ -36,9 +34,9 @@ public class SQLStorage implements Storage {
             @Override
             public Object wrap(Connection conn) throws SQLException {
                 try (PreparedStatement ps = conn.prepareStatement("INSERT INTO CARD (id, NUMBER, ACCOUNT_ID) VALUES (?, ?, ?)")) {
-                    ps.setString(1, c.getId());
+                    ps.setString(1, c.getId().toString());
                     ps.setInt(2, c.getNumber());
-                    ps.setString(3, c.getAccount_id());
+                    ps.setString(3, c.getAccount_id().toString());
                     ps.execute();
                     return null;
                 }
@@ -48,14 +46,38 @@ public class SQLStorage implements Storage {
 
     @Override
     public void updateCard(Card c) {
-
+        sqlHelper.transactionalExecute(new SQLTransaction<Object>() {
+            @Override
+            public Object wrap(Connection conn) throws SQLException {
+                try (PreparedStatement ps = conn.prepareStatement("UPDATE " )) {
+                    return null;
+                }
+            }
+        });
     }
 
-    @Override
-    public Card getCard(int id) {
-        return null;
-    }
+            @Override
+            public Card getCard(String id) {
+                Card card = new Card();
+                sqlHelper.transactionalExecute(new SQLTransaction<Object>() {
 
+                    @Override
+                    public Object wrap(Connection conn) throws SQLException {
+                        try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM CARD WHERE id = ?")) {
+                            ps.setString(1, id);
+                            ResultSet rs = ps.executeQuery();
+                            rs.next();
+
+                            card.setId(rs.getObject("id", UUID.class));
+                            card.setAccount_id(rs.getObject("account_id", UUID.class));
+                            card.setNumber(rs.getInt("number"));
+                            System.out.println(card.getNumber());
+                            return card;
+                        }
+                    }
+                });
+                return card;
+            }
     @Override
     public List<Card> getAllCardsSorted() {
         return null;

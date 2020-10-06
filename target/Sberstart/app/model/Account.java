@@ -3,6 +3,7 @@ package main.webapp.app.model;
 public class Account {
     private String id;
     private int number;
+    private String client_id;
 
     public Account(String id, int number) {
         this.id = id;
