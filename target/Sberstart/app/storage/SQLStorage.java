@@ -33,7 +33,7 @@ public class SQLStorage implements Storage {
 
     @Override
     public void clearCards() {
-        sqlHelper.execute("DELETE FROM STORAGE.PUBLIC.CARD");
+        sqlHelper.execute("DELETE FROM CARD");
     }
 
     @Override
