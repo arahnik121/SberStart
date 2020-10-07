@@ -10,16 +10,21 @@ public class Card implements Comparable<Card>, Serializable {
     private UUID id;
     private int number;
     private UUID account_id;
+    private float balance;
 
-    public Card() {
-
-    }
-
-
-    public Card(UUID id, int number, UUID account_id) {
+    public Card(UUID id, int number, UUID account_id, float balance) {
         this.id = id;
         this.number = number;
         this.account_id = account_id;
+        this.balance = balance;
+    }
+
+    public void setBalance(float balance) {
+        this.balance = balance;
+    }
+
+    public float getBalance() {
+        return balance;
     }
 
     public UUID getAccount_id() {

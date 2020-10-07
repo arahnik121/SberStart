@@ -21,7 +21,7 @@ public class Config {
             //Initialize the script runner
             ScriptRunner sr = new ScriptRunner(con);
             //Creating a reader object
-            Reader reader = new BufferedReader(new FileReader("/Users/user1234/Projects/SberStart1/props/initDB.sql"));
+            Reader reader = new BufferedReader(new FileReader("C:/JavaStudy/SberStart/props/initDB.sql"));
             //Running the script
             sr.runScript(reader);
         } catch (SQLException e) {

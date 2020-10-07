@@ -1,20 +1,31 @@
 package main.webapp.app.model;
 
-public class Account {
-    private String id;
-    private int number;
-    private String client_id;
+import java.util.UUID;
 
-    public Account(String id, int number) {
+public class Account {
+    private UUID id;
+    private int number;
+    private UUID client_id;
+
+    public Account(UUID id, int number, UUID client_id) {
         this.id = id;
         this.number = number;
+        this.client_id = client_id;
     }
 
-    public String getId() {
+    public UUID getClient_id() {
+        return client_id;
+    }
+
+    public void setClient_id(UUID client_id) {
+        this.client_id = client_id;
+    }
+
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

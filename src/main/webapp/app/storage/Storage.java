@@ -5,20 +5,21 @@ import main.webapp.app.model.Client;
 import main.webapp.app.model.Card;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface Storage {
 
     void clearCards();
 
-    void saveCard(Account a, Card c);
+    void saveCard(Card c);
 
     void updateCard(Card c);
 
-    Card getCard(String id);
+    Card getCard(UUID id);
 
     List<Card> getAllCardsSorted();
 
-    void deleteCard(int id);
+    void deleteCard(UUID id);
 
     int getNumberOfCards();
 
