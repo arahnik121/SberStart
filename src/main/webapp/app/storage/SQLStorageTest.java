@@ -1,59 +1,63 @@
 package main.webapp.app.storage;
 
+import main.webapp.app.Config;
 import main.webapp.app.model.Account;
 import main.webapp.app.model.Card;
+import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Test;
+
+import java.util.UUID;
 
 import static org.junit.Assert.*;
 
 public class SQLStorageTest {
-    protected SQLStorage storage;
+    protected Storage storage = new SQLStorage("jdbc:h2:mem:storage1", "root", "password");
+    Card card1 = new Card(UUID.fromString("6be896e4-08ae-11eb-adc1-0242ac120002"), 123123, UUID.fromString("14aa7075-7077-49d6-a621-9d91fa65ef79"), 100);
+    Card card2 = new Card(UUID.fromString("703842c6-08ae-11eb-adc1-0242ac120002"), 123123, UUID.fromString("14aa7075-7077-49d6-a621-9d91fa65ef79"), 200);
+    Card card3 = new Card(UUID.fromString("72f3fc9e-08ae-11eb-adc1-0242ac120002"), 123123, UUID.fromString("14aa7075-7077-49d6-a621-9d91fa65ef79"), 300);
 
-//    @Before
-//    public void setUp() throws Exception {
-//        Card card = new Card("4c0f8a96-e193-4a92-bd34-9dcfb02c2777", 427655014, "4c0fsd96-e193-4a92-df34-9dcfb02c276a");
-//        Account account1 = new Account("321", 123);
-//        storage.saveCard(account1, card);
-//    }
+    @Before
+    public void setUp() throws Exception {
+        Config.initDatabase();
+    }
 
-    @org.junit.Test
+
+    @Test
     public void clearCards() {
+        storage.saveCard(card1);
+        storage.saveCard(card2);
+        storage.saveCard(card3);
+        Assert.assertEquals(5, storage.getAllCardsSorted().size());
         storage.clearCards();
+        Assert.assertEquals(0, storage.getAllCardsSorted().size());
     }
 
-    @org.junit.Test
+    @Test
     public void saveCard() {
+        storage.saveCard(card1);
+        Assert.assertEquals(card1.getId(), storage.getCard(UUID.fromString("6be896e4-08ae-11eb-adc1-0242ac120002")).getId());
+        Assert.assertEquals(3, storage.getAllCardsSorted().size());
     }
 
-    @org.junit.Test
+    @Test
     public void updateCard() {
     }
 
-    @org.junit.Test
+    @Test
     public void getCard() {
     }
 
-    @org.junit.Test
+    @Test
     public void getAllCardsSorted() {
     }
 
-    @org.junit.Test
+    @Test
     public void deleteCard() {
     }
 
-    @org.junit.Test
+    @Test
     public void getNumberOfCards() {
     }
 
-    @org.junit.Test
-    public void saveClient() {
-    }
-
-    @org.junit.Test
-    public void updateClient() {
-    }
-
-    @org.junit.Test
-    public void getAllClientsSorted() {
-    }
 }
