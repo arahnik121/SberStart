@@ -10,6 +10,7 @@ import main.webapp.app.sql.SQLHelper;
 import main.webapp.app.sql.SQLTransaction;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -32,7 +33,7 @@ public class SQLStorage implements Storage {
 
     @Override
     public void clearCards() {
-        sqlHelper.execute("DELETE FROM STORAGE.PUBLIC.CARD");
+        sqlHelper.execute("DELETE FROM CARD");
     }
 
     @Override
@@ -99,7 +100,17 @@ public class SQLStorage implements Storage {
 
     @Override
     public List<Card> getAllCardsSorted() {
-        return null;
+        return sqlHelper.execute("SELECT * FROM CARD ORDER BY ID", new SQLExecutor<List<Card>>() {
+            @Override
+            public List<Card> wrap(PreparedStatement ps) throws SQLException {
+                ResultSet rs = ps.executeQuery();
+                List<Card> list = new ArrayList<>();
+                while (rs.next()) {
+                    list.add(new Card(rs.getObject("id", UUID.class), rs.getInt("number"), rs.getObject("account_id", UUID.class), rs.getFloat("balance")));
+                }
+                return list;
+            }
+        });
     }
 
     @Override

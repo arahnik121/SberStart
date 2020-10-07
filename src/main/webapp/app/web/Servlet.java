@@ -1,5 +1,6 @@
 package main.webapp.app.web;
 
+import main.webapp.app.Config;
 import main.webapp.app.storage.SQLStorage;
 import main.webapp.app.storage.Storage;
 
@@ -10,12 +11,19 @@ import java.io.IOException;
 
 
 public class Servlet {
+    private final Storage storage = Config.initDatabase();
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        String cardID = request.getParameter("id");
+        String action = request.getParameter("action");
+        if (action == null) {
+            request.setAttribute("cardList", storage.getAllCardsSorted());
+            request.getRequestDispatcher("WEB-INF/jsp/index.jsp").forward(request, response);
+            return;
+        }
     }
 
 }

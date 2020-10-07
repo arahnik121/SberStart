@@ -1,5 +1,6 @@
 package main.webapp.app.model;
 
+import main.webapp.app.storage.SQLStorage;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
@@ -49,6 +50,11 @@ public class Card implements Comparable<Card>, Serializable {
 
     public void setNumber(int number) {
         this.number = number;
+    }
+
+    public void changeBalance(SQLStorage storage, float money) {
+        setBalance(getBalance() + money);
+        storage.updateCard(this);
     }
 
     @Override
