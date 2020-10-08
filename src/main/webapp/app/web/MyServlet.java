@@ -1,10 +1,10 @@
 package main.webapp.app.web;
 
+import jakarta.servlet.http.HttpServlet;
 import main.webapp.app.Config;
 import main.webapp.app.storage.Storage;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;

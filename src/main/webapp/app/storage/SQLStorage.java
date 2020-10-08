@@ -45,7 +45,7 @@ public class SQLStorage implements Storage {
                     ps.setString(1, c.getId().toString());
                     ps.setInt(2, c.getNumber());
                     ps.setString(3, c.getAccount_id().toString());
-                    ps.setFloat(4, c.getBalance());
+                    ps.setBigDecimal(4, c.getBalance());
                     ps.execute();
                     return null;
                 }
@@ -59,7 +59,7 @@ public class SQLStorage implements Storage {
             @Override
             public Object wrap(Connection conn) throws SQLException {
                 try (PreparedStatement ps = conn.prepareStatement("UPDATE CARD SET BALANCE = ? where ID = ?")) {
-                    ps.setFloat(1, c.getBalance());
+                    ps.setBigDecimal(1, c.getBalance());
                     ps.setString(2, c.getId().toString());
                     ps.execute();
                     if (ps.executeUpdate() == 0) {
@@ -81,7 +81,7 @@ public class SQLStorage implements Storage {
                 if (!rs.next()) {
                     throw new NotExistStorageException(id.toString());
                 }
-                return new Card(id, rs.getInt("number"), rs.getObject("account_id", UUID.class), rs.getFloat("balance"));
+                return new Card(id, rs.getInt("number"), rs.getObject("account_id", UUID.class), rs.getBigDecimal("balance"));
             }
         });
     }
@@ -106,7 +106,7 @@ public class SQLStorage implements Storage {
                 ResultSet rs = ps.executeQuery();
                 List<Card> list = new ArrayList<>();
                 while (rs.next()) {
-                    list.add(new Card(rs.getObject("id", UUID.class), rs.getInt("number"), rs.getObject("account_id", UUID.class), rs.getFloat("balance")));
+                    list.add(new Card(rs.getObject("id", UUID.class), rs.getInt("number"), rs.getObject("account_id", UUID.class), rs.getBigDecimal("balance")));
                 }
                 return list;
             }
@@ -115,7 +115,8 @@ public class SQLStorage implements Storage {
 
     @Override
     public int getNumberOfCards() {
-        return 0;
+        List<Card> list = this.getAllCardsSorted();
+        return list.size();
     }
 
     @Override

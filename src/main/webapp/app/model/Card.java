@@ -4,6 +4,7 @@ import main.webapp.app.storage.SQLStorage;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.UUID;
 
 
@@ -11,20 +12,20 @@ public class Card implements Comparable<Card>, Serializable {
     private UUID id;
     private int number;
     private UUID account_id;
-    private float balance;
+    private BigDecimal balance;
 
-    public Card(UUID id, int number, UUID account_id, float balance) {
+    public Card(UUID id, int number, UUID account_id, BigDecimal balance) {
         this.id = id;
         this.number = number;
         this.account_id = account_id;
         this.balance = balance;
     }
 
-    public void setBalance(float balance) {
+    private void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
 
-    public float getBalance() {
+    public BigDecimal getBalance() {
         return balance;
     }
 
@@ -52,8 +53,8 @@ public class Card implements Comparable<Card>, Serializable {
         this.number = number;
     }
 
-    public void changeBalance(SQLStorage storage, float money) {
-        setBalance(getBalance() + money);
+    public void changeBalance(SQLStorage storage, BigDecimal money) {
+        setBalance(getBalance().add(money));
         storage.updateCard(this);
     }
 

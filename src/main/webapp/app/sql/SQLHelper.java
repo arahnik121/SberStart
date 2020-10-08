@@ -30,7 +30,7 @@ public class SQLHelper {
         }
     }
 
-    public <T> T transactionalExecute(SQLTransaction<T> executor) {
+    public <T> T transactionalExecute(main.webapp.app.sql.SQLTransaction<T> executor) {
         try (Connection conn = connectionFactory.getConnection()) {
             try {
                 conn.setAutoCommit(false);
