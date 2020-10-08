@@ -13,7 +13,7 @@ public interface Storage {
 
     void saveCard(Card c);
 
-    void updateCard(Card c);
+    void updateCardBalance(Card c);
 
     Card getCard(UUID id);
 
@@ -27,6 +27,17 @@ public interface Storage {
 
     void updateClient(Client a);
 
+    Client getClient(UUID id);
+
     List<Client> getAllClientsSorted();
 
+    void deleteClient(UUID id);
+
+    void saveAccount(Account a);
+
+    Account getAccount(UUID id);
+
+    List<Account> getAllAccountsSorted();
+
+    void deleteAccount(UUID id);
 }

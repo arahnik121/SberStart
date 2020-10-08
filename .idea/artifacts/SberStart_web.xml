@@ -52,6 +52,8 @@
         </element>
       </element>
       <element id="javaee-facet-resources" facet="SberStart/web/Web" />
+      <element id="javaee-facet-resources" facet="SberStart/web/Web" />
+      <element id="javaee-facet-resources" facet="SberStart/web/Web" />
     </root>
   </artifact>
 </component>
