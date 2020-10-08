@@ -1,8 +1,8 @@
-package main.webapp.app.storage;
+package app.storage;
 
-import main.webapp.app.model.Account;
-import main.webapp.app.model.Client;
-import main.webapp.app.model.Card;
+import app.model.Account;
+import app.model.Client;
+import app.model.Card;
 
 import java.util.List;
 import java.util.UUID;

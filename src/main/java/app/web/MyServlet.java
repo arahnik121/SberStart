@@ -1,7 +1,7 @@
-package main.java.app.web;
+package app.web;
 
-import main.java.app.Config;
-import main.java.app.storage.Storage;
+import app.Config;
+import app.storage.Storage;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -21,7 +21,7 @@ public class MyServlet extends HttpServlet {
         String cardID = request.getParameter("id");
         String action = request.getParameter("action");
         request.setAttribute("cardList", storage.getAllCardsSorted());
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+        request.getRequestDispatcher("web/index.jsp").forward(request, response);
     }
 
 }

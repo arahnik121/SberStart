@@ -1,6 +1,6 @@
-package main.webapp.app.sql;
+package app.sql;
 
-import main.webapp.app.exceptions.StorageException;
+import app.exceptions.StorageException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
